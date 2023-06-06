@@ -32,6 +32,8 @@ The application will process the file and display the following:
 A table with the uploaded data, available on the "Visualization" page.
 A bar chart displaying the top 10 actors based on the number of films they have appeared in.
 A bar chart displaying the top 10 actresses based on the number of films they have appeared in.
+
+
 Візуалізація даних про фільми за допомогою Flask
 Це веб-додаток Flask, який дозволяє користувачам завантажувати CSV-файл, що містить дані про фільми, і візуалізує найкращих акторів та актрис на основі кількості фільмів, в яких вони знялися.
 
