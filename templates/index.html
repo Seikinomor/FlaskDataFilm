@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask App</title>
+</head>
+<body>
+    <h1>Upload a CSV File</h1>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv">
+        <input type="submit" value="Upload">
+    </form>
+    
+    <h2>Visualization</h2>
+    {% if data %}
+        {{ data|safe }}
+    {% else %}
+        <p>No data available</p>
+    {% endif %}
+    
+    <h2>Top Actors</h2>
+    <img src="{{ url_for('static', filename='actors_plot.png') }}" alt="Top Actors">
+    
+    <h2>Top Actresses</h2>
+    <img src="{{ url_for('static', filename='actresses_plot.png') }}" alt="Top Actresses">
+</body>
+</html>

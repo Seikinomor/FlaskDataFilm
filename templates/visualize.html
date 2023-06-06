@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Visualization</title>
+</head>
+<body>
+    {% if data %}
+        {{ data|safe }}
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</body>
+</html>
