@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask App</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='counts-bg.png') }}");
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        h1, h2, p {
+            margin-top: 0;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #45a049;
+        }
+
+        .sidebar {
+            float: right;
+            width: 300px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border-radius: 4px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Ласкаво просимо на наш лендінг!</h2>
+        <p>Тут ви можете завантажити свій CSV-файл з даними про фільми та отримати візуалізації та статистику щодо акторів та актрис.</p>
+        <p>Ми використовуємо Flask для створення цієї програми. Після завантаження файлу ми аналізуємо дані та створюємо графіки для топ-10 акторів та актрис за кількістю фільмів, в яких вони знялися. Графіки зберігаються як зображення у папці 'static'.</p>
+        <p>Будь ласка, переконайтеся, що ваш CSV-файл має розширення '.csv'.</p>
+        <p>На нашому лендінгу ви можете насолоджуватися результатами аналізу та візуалізації своїх власних даних про фільми. Приємного користування!</p>
+    </div>
+
+    <h1>Завантажте CSV-файл</h1>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <label for="file-upload" class="custom-file-upload">Виберіть файл</label>
+        <input id="file-upload" type="file" name="file" accept=".csv">
+        <input type="submit" value="Завантажити">
+    </form>
+    
+    <h2>Візуалізація</h2>
+    {% if data %}
+        {{ data|safe }}
+    {% else %}
+        <p>Дані відсутні</p>
+    {% endif %}
+    
+    <h2>Топ актори</h2>
+    <img src="{{ url_for('static', filename='actors_plot.png') }}" alt="Топ актори">
+    
+    <h2>Топ актриси</h2>
+    <img src="{{ url_for('static', filename='actresses_plot.png') }}" alt="Топ актриси">
+</body>
+</html>
