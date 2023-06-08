@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Visualization</title>
+  <title>Data Visualization</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    {% if data %}
-        {{ data|safe }}
-    {% else %}
-        <p>No data available.</p>
-    {% endif %}
+  <h1>Data Visualization</h1>
+  
+  {% if data %}
+    <table>
+      <tr>
+        {% for key in data[0] %}
+          <th>{{ key }}</th>
+        {% endfor %}
+      </tr>
+      {% for item in data %}
+        <tr>
+          {% for key, value in item.items() %}
+            <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No data available.</p>
+  {% endif %}
 </body>
 </html>
