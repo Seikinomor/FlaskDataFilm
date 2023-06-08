@@ -53,6 +53,24 @@
             margin-bottom: 20px;
             opacity: 0.8;
         }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 500px;
+            overflow-x: auto;
+        }
+
+        th, td {
+            border: 1px solid #ffffff;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -78,10 +96,83 @@
         <p>Дані відсутні</p>
     {% endif %}
     
-    <h2>Топ актори</h2>
-    <img src="{{ url_for('static', filename='actors_plot.png') }}" alt="Топ актори">
-    
-    <h2>Топ актриси</h2>
-    <img src="{{ url_for('static', filename='actresses_plot.png') }}" alt="Топ актриси">
+    <h2>Фільми Brigitte Bardot за роками</h2>
+    <table>
+        <tr>
+            <th>Рік</th>
+            <th>Кількість фільмів</th>
+            <th>Фільми</th>
+        </tr>
+        <tr>
+            <td>1955</td>
+            <td>1</td>
+            <td>Doctor at Sea</td>
+        </tr>
+        <tr>
+            <td>1957</td>
+            <td>2</td>
+            <td>Mademoiselle Striptease, And God Created Woman</td>
+        </tr>
+        <tr>
+            <td>1958</td>
+            <td>2</td>
+            <td>That Naughty Girl, Bride Is Much Too Beautiful, The</td>
+        </tr>
+        <tr>
+            <td>1959</td>
+            <td>1</td>
+            <td>Voulez-Vous Danser Avec Moi?</td>
+        </tr>
+        <tr>
+            <td>1962</td>
+            <td>2</td>
+            <td>A Very Private Affair, Le Repos Du Guerrier, (Warrior's Rest)</td>
+        </tr>
+        <tr>
+            <td>1964</td>
+            <td>2</td>
+            <td>Contempt, Ravishing Idiot, The</td>
+        </tr>
+        <tr>
+            <td>1965</td>
+            <td>1</td>
+            <td>Dear Brigitte</td>
+        </tr>
+        <tr>
+            <td>1967</td>
+            <td>1</td>
+            <td>A Coeur Joie, (Head Over Heels)</td>
+        </tr>
+        <tr>
+            <td>1968</td>
+            <td>1</td>
+            <td>Shalako</td>
+        </tr>
+        <tr>
+            <td>1969</td>
+            <td>1</td>
+            <td>Women, The</td>
+        </tr>
+        <tr>
+            <td>1973</td>
+            <td>1</td>
+            <td>Ms. Don Juan</td>
+        </tr>
+    </table>
+
+    <h2>Графік фільмів Brigitte Bardot за роками</h2>
+    <div>
+        <img src="{{ url_for('static', filename='bardot_movies_plot.png') }}" alt="Bardot Movies Plot">
+    </div>
+
+    <h2>Топ-10 акторів за кількістю фільмів</h2>
+    <div>
+        <img src="{{ url_for('static', filename='actors_plot.png') }}" alt="Actors Plot">
+    </div>
+
+    <h2>Топ-10 актрис за кількістю фільмів</h2>
+    <div>
+        <img src="{{ url_for('static', filename='actresses_plot.png') }}" alt="Actresses Plot">
+    </div>
 </body>
 </html>
