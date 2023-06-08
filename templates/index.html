@@ -1,57 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>My Flask App</title>
-    <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лендінг</title>
+        <style>
         body {
             background-image: url("{{ url_for('static', filename='counts-bg.png') }}");
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
-            color: #ffffff;
+            color: #000000;
             padding: 20px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        h1, h2, p {
-            margin-top: 0;
+        .sidebar {
+            background-color: #f1f1f1;
+            padding: 20px;
+            width: 300px;
         }
 
-        form {
-            margin-bottom: 20px;
+        .custom-file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            font-size: 14px;
         }
 
         input[type="file"] {
             display: none;
         }
 
-        .custom-file-upload {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .custom-file-upload:hover {
-            background-color: #45a049;
-        }
-
-        .sidebar {
-            float: right;
-            width: 300px;
-            padding: 20px;
-            background-color: #f0f0f0;
-            color: #000000;
-            border-radius: 4px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            opacity: 0.8;
+        p {
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         table {
@@ -59,120 +48,221 @@
             width: 100%;
             max-width: 500px;
             overflow-x: auto;
+            margin-top: 20px;
+            color: ##4c4c4c;
         }
 
-        th, td {
-            border: 1px solid #ffffff;
+        th,
+        td {
+            border: 1px solid ###ffffff;
             padding: 8px;
             text-align: left;
+            color: #808080;;
         }
 
         th {
             background-color: #4caf50;
             color: #ffffff;
         }
+
+        #filmChart {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="sidebar">
         <h2>Ласкаво просимо на наш лендінг!</h2>
-        <p>Тут ви можете завантажити свій CSV-файл з даними про фільми та отримати візуалізації та статистику щодо акторів та актрис.</p>
-        <p>Ми використовуємо Flask для створення цієї програми. Після завантаження файлу ми аналізуємо дані та створюємо графіки для топ-10 акторів та актрис за кількістю фільмів, в яких вони знялися. Графіки зберігаються як зображення у папці 'static'.</p>
-        <p>Будь ласка, переконайтеся, що ваш CSV-файл має розширення '.csv'.</p>
-        <p>На нашому лендінгу ви можете насолоджуватися результатами аналізу та візуалізації своїх власних даних про фільми. Приємного користування!</p>
+        <p style="color: #000000;">Тут ви можете завантажити свій CSV-файл з даними про фільми та отримати
+            візуалізації та статистику.</p>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="file" accept=".csv">
+            <label for="file" class="custom-file-upload">Оберіть файл</label>
+            <input type="submit" value="Завантажити">
+        </form>
     </div>
 
-    <h1>Завантажте CSV-файл</h1>
-    <form method="POST" action="/" enctype="multipart/form-data">
-        <label for="file-upload" class="custom-file-upload">Виберіть файл</label>
-        <input id="file-upload" type="file" name="file" accept=".csv">
-        <input type="submit" value="Завантажити">
-    </form>
-    
-    <h2>Візуалізація</h2>
-    {% if data %}
-        {{ data|safe }}
-    {% else %}
-        <p>Дані відсутні</p>
-    {% endif %}
-    
-    <h2>Фільми Brigitte Bardot за роками</h2>
-    <table>
-        <tr>
-            <th>Рік</th>
-            <th>Кількість фільмів</th>
-            <th>Фільми</th>
-        </tr>
-        <tr>
-            <td>1955</td>
-            <td>1</td>
-            <td>Doctor at Sea</td>
-        </tr>
-        <tr>
-            <td>1957</td>
-            <td>2</td>
-            <td>Mademoiselle Striptease, And God Created Woman</td>
-        </tr>
-        <tr>
-            <td>1958</td>
-            <td>2</td>
-            <td>That Naughty Girl, Bride Is Much Too Beautiful, The</td>
-        </tr>
-        <tr>
-            <td>1959</td>
-            <td>1</td>
-            <td>Voulez-Vous Danser Avec Moi?</td>
-        </tr>
-        <tr>
-            <td>1962</td>
-            <td>2</td>
-            <td>A Very Private Affair, Le Repos Du Guerrier, (Warrior's Rest)</td>
-        </tr>
-        <tr>
-            <td>1964</td>
-            <td>2</td>
-            <td>Contempt, Ravishing Idiot, The</td>
-        </tr>
-        <tr>
-            <td>1965</td>
-            <td>1</td>
-            <td>Dear Brigitte</td>
-        </tr>
-        <tr>
-            <td>1967</td>
-            <td>1</td>
-            <td>A Coeur Joie, (Head Over Heels)</td>
-        </tr>
-        <tr>
-            <td>1968</td>
-            <td>1</td>
-            <td>Shalako</td>
-        </tr>
-        <tr>
-            <td>1969</td>
-            <td>1</td>
-            <td>Women, The</td>
-        </tr>
-        <tr>
-            <td>1973</td>
-            <td>1</td>
-            <td>Ms. Don Juan</td>
-        </tr>
-    </table>
-
-    <h2>Графік фільмів Brigitte Bardot за роками</h2>
     <div>
-        <img src="{{ url_for('static', filename='bardot_movies_plot.png') }}" alt="Bardot Movies Plot">
+        <h2 style="color: white;">Фільми Brigitte Bardot за роками</h2>
+        <table>
+            <tr>
+                <th>Рік</th>
+                <th>Кількість фільмів</th>
+                <th>Фільми</th>
+            </tr>
+            <tr>
+                <td>1955</td>
+                <td>1</td>
+                <td>Doctor at Sea</td>
+            </tr>
+            <tr>
+                <td>1957</td>
+                <td>2</td>
+                <td>Mademoiselle Striptease, And God Created Woman</td>
+            </tr>
+            <tr>
+                <td>1958</td>
+                <td>3</td>
+                <td>That Naughty Girl, Bride Is Much Too Beautiful, The</td>
+            </tr>
+            <tr>
+                <td>1959</td>
+                <td>1</td>
+                <td>Voulez-Vous Danser Avec Moi?</td>
+            </tr>
+            <tr>
+                <td>1962</td>
+                <td>3</td>
+                <td>A Very Private Affair, Le Repos Du Guerrier, (Warrior's Rest)</td>
+            </tr>
+            <tr>
+                <td>1964</td>
+                <td>2</td>
+                <td>Contempt, Ravishing Idiot</td>
+            </tr>
+            <tr>
+                <td>1965</td>
+                <td>1</td>
+                <td>Dear Brigitte</td>
+            </tr>
+            <tr>
+                <td>1967</td>
+                <td>3</td>
+                <td>Les Femmes (Women, The)</td>
+            </tr>
+            <tr>
+                <td>1970</td>
+                <td>1</td>
+                <td>Don Juan, or If Don Juan Were a Woman</td>
+            </tr>
+            <tr>
+                <td>1973</td>
+                <td>1</td>
+                <td>Dom</td>
+            </tr>
+            <tr>
+                <td>1975</td>
+                <td>1</td>
+                <td>Shalako</td>
+            </tr>
+            <tr>
+                <td>1982</td>
+                <td>1</td>
+                <td>Spirits of the Dead</td>
+            </tr>
+            <tr>
+                <td>1994</td>
+                <td>1</td>
+                <td>Les Cent et une nuits de Simon Cinéma</td>
+            </tr>
+        </table>
     </div>
 
-    <h2>Топ-10 акторів за кількістю фільмів</h2>
-    <div>
-        <img src="{{ url_for('static', filename='actors_plot.png') }}" alt="Actors Plot">
-    </div>
+    <canvas id="filmChart"></canvas>
 
-    <h2>Топ-10 актрис за кількістю фільмів</h2>
-    <div>
-        <img src="{{ url_for('static', filename='actresses_plot.png') }}" alt="Actresses Plot">
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Отримуємо посилання на елемент canvas
+            var ctx = document.getElementById('filmChart').getContext('2d');
+
+            // Дані з таблиці
+            var filmData = [
+                { year: 1955, filmCount: 1, filmTitle: 'Doctor at Sea' },
+                { year: 1957, filmCount: 2, filmTitle: 'Mademoiselle Striptease, And God Created Woman' },
+                { year: 1958, filmCount: 3, filmTitle: 'That Naughty Girl, Bride Is Much Too Beautiful, The' },
+                { year: 1959, filmCount: 1, filmTitle: 'Voulez-Vous Danser Avec Moi?' },
+                { year: 1962, filmCount: 3, filmTitle: 'A Very Private Affair, Le Repos Du Guerrier, (Warrior\'s Rest)' },
+                { year: 1964, filmCount: 2, filmTitle: 'Contempt, Ravishing Idiot'},
+                { year: 1965, filmCount: 1, filmTitle: 'Dear Brigitte' },
+                { year: 1967, filmCount: 3, filmTitle: 'Les Femmes (Women, The), A Coeur Joie, (Head Over Heels)' },
+                { year: 1970, filmCount: 1, filmTitle: 'Don Juan, or If Don Juan Were a Woman' },
+                { year: 1973, filmCount: 1, filmTitle: 'Dom' },
+                { year: 1975, filmCount: 1, filmTitle: 'Shalako' },
+                { year: 1982, filmCount: 1, filmTitle: 'Spirits of the Dead' },
+                { year: 1994, filmCount: 1, filmTitle: 'Les Cent et une nuits de Simon Cinéma' }
+            ];
+
+            // Підготовка даних для графіка
+            var filmTitles = filmData.map(function (item) {
+                return item.filmTitle;
+            });
+
+            var filmCounts = filmData.map(function (item) {
+                return item.filmCount;
+            });
+
+            var years = filmData.map(function (item) {
+                return item.year;
+            });
+
+            // Створюємо графік
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Кількість фільмів',
+                        data: filmCounts,
+                        backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'x',
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Роки',
+                                color: '#ffffff' // Доданий колір для назви осі X
+                            },
+                            ticks: {
+                                callback: function (value, index, values) {
+                                    return years[index];
+                                },
+                                color: '#ffffff' // Доданий колір для підписів осі X
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: ' ',
+                                color: '#ffffff' // Доданий колір для назви осі Y
+                            },
+                            ticks: {
+                                callback: function (value, index, values) {
+                                    return filmTitles[index];
+                                },
+                                color: '#ffffff' // Доданий колір для підписів осі Y
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: function (context) {
+                                    var index = context[0].dataIndex;
+                                    return filmTitles[index];
+                                },
+                                label: function (context) {
+                                    return 'Кількість фільмів: ' + context.parsed.y;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
